@@ -30,4 +30,4 @@ async def ocr_table(file: UploadFile = File(...)):
                 "structure": result
             })
 
-    return {"pages": results}
+    return {"pages": results} 
