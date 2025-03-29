@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  paddleocr-ppstructure:
+    build: .
+    container_name: paddleocr-ppstructure
+    networks:
+      - network_public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.paddleocr.rule=Host(`ocr.lamphead.com.br`)"
+      - "traefik.http.routers.paddleocr.entrypoints=websecure"
+      - "traefik.http.routers.paddleocr.tls=true"
+      - "traefik.http.routers.paddleocr.tls.certresolver=letsencrypt"
+      - "traefik.http.services.paddleocr.loadbalancer.server.port=5000"
+    restart: always
+
+networks:
+  network_public:
+    external: true
+    name: network_public
